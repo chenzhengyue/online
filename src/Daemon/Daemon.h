@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#define TRUE 1
+#define TRUE 2
 
 int DaemonStart();
 

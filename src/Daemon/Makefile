@@ -1,4 +1,5 @@
 CC = gcc
+CFLAGS = -I$(HOME)/online/include -Wall
 
 TARG = Daemon
 OBJS = \
@@ -10,16 +11,20 @@ all:$(TARG)
 
 $(TARG):$(OBJS)
 	$(CC) -o $@ $^
+	@rm -f *.d
 
 %.o:%.c
-	$(CC) -c $< -I$(HOME)/online/include
+	$(CC) -c $< $(CFLAGS)
 
 %.d:%.c
-	@set -e; $(CC) -MM $< > $@.$$$$; \
+	@set -e; rm -f $@; \
+	$(CC) -MM $< $(CFLAGS) > $@.$$$$ ; \
 	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+	rm -f $@.$$$$
 
-include $(OBJS:.o=.d)
+-include $(OBJS:.o=.d)
 
 .PHONY:clean
 clean:
 	rm -f $(TARG) $(OBJS)
+	@rm -f *.d *.d.*
