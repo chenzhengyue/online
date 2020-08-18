@@ -1,30 +1,8 @@
-CC = gcc
-CFLAGS = -I$(HOME)/online/include -Wall
-
 TARG = Daemon
+
 OBJS = \
-    Daemon.o\
-    Test.o
+    $(HOME)/online/src/Daemon/Daemon.o \
+    $(HOME)/online/src/Daemon/Test.o
 
-.PHONY:all
-all:$(TARG)
-
-$(TARG):$(OBJS)
-	$(CC) -o $@ $^
-	@rm -f *.d
-
-%.o:%.c
-	$(CC) -c $< $(CFLAGS)
-
-%.d:%.c
-	@set -e; rm -f $@; \
-	$(CC) -MM $< $(CFLAGS) > $@.$$$$ ; \
-	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
-	rm -f $@.$$$$
-
--include $(OBJS:.o=.d)
-
-.PHONY:clean
-clean:
-	rm -f $(TARG) $(OBJS)
-	@rm -f *.d *.d.*
+all clean:
+	@make -f $(HOME)/online/mak/Makefile $@ TARG="$(TARG)" OBJS="$(OBJS)"
