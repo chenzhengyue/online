@@ -1,8 +1,10 @@
-TARG = Daemon
+TARGET = Daemon
 
-OBJS = \
-    $(HOME)/online/src/Daemon/Daemon.o \
-    $(HOME)/online/src/Daemon/Test.o
+OBJS = Daemon.o
 
-all clean:
-	@make -f $(HOME)/online/mak/Makefile $@ TARG="$(TARG)" OBJS="$(OBJS)"
+LIBS =
+
+debug all:debugexec
+
+debugexec debugstatic debugdynamic clean:
+	@make -f $(HOME)/online/mak/MkStand.mak --no-print-directory $@ TARGET="$(TARGET)" OBJS="$(OBJS)" LIBS="$(LIBS)"

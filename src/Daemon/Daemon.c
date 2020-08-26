@@ -1,5 +1,4 @@
 #include "Daemon.h"
-#include "Test.h"
 
 int main(int argc, char **argv)
 {
@@ -26,9 +25,8 @@ int main(int argc, char **argv)
 //启动守护进程 
 int DaemonStart()
 {
-	int i;
-	int pid;
-	Test();
+	//int i;
+	//int pid;
 /* 
 	pid = fork();
 	if(pid > 0)
